@@ -1,0 +1,22 @@
+body {
+    font-family: Arial;
+
+    margin: 30px;
+}
+
+input {
+    padding: 8px;
+
+    margin-right : 30px;
+
+}
+
+button {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+li {
+    margin-top: 5px;
+}
+
