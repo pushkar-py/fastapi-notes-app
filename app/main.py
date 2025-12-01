@@ -1,31 +1,15 @@
-from fastapi import FastAPI , Request, Form
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from app.routers import notes
 
 app = FastAPI()
 
-# Mount static files
+# Correct static mount
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-app.mount("/static:", StaticFiles(directory= "app/static"), name = "Static")
-
-#templates
-
+# Templates setup
 templates = Jinja2Templates(directory="app/templates")
 
-
-
-
-
-#in-memory storage for demonstration purposes
-
-notes = []
-
-@app.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "notes" : notes})
-
-
-@app.post("/add-note")
-async def add_note(note:str  = Form(...)):
-    notes.append(note)
-    return {"message": "Note added successfully", "note": note}
+# REGISTER ROUTER HERE
+app.include_router(notes.router)

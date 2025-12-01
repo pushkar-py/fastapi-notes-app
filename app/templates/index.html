@@ -2,36 +2,26 @@
 <html>
     <head>
         <title>Notes APP</title>
-        <link rel="stylesheet" href="/static/styles.css">
-        
+        <link rel="stylesheet" href="/static/style.css">
     </head>
 
     <body>
         <h1>My Notes</h1>
 
-        <form id ="noteform" action = "/add-note" method = "post">
-
-            <input type = "text"   name = "note" placeholder="Write a note..."" required>
-            <button type = "submit">Add Note</button>
+        <form id="noteform" action="/add-note" method="post">
+            <input type="text" name="note" placeholder="Write a note..." required>
+            <button type="submit">Add Note</button>
         </form>
 
         <ul>
             {% for n in notes %}
-                <li>{{n}}</li>
-
+                <li>
+                    {{ n }}
+                    <a href="/edit/{{ loop.index0 }}">Edit</a>
+                    <a href="/delete-note/{{ loop.index0 }}">Delete</a>
+                </li>
             {% endfor %}
         </ul>
 
-        <script>
-            document.getElemnetById("noteform").onsubmit = async (e) =>{
-                e.preventDeafult();
-
-                let formData = new FormData(e.target);
-                await fetch("/add-note", {
-                    method: "POST",
-                    body: formData
-                });
-            }
-        </script>
     </body>
 </html>
