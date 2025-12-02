@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Notes APP</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
+<head>
+    <title>Notes App</title>
 
-    <body>
-        <h1>My Notes</h1>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <form id="noteform" action="/add-note" method="post">
-            <input type="text" name="note" placeholder="Write a note..." required>
-            <button type="submit">Add Note</button>
-        </form>
+</head>
+<body class="container py-4">
 
-        <ul>
-            {% for n in notes %}
-                <li>
-                    {{ n }}
-                    <a href="/edit/{{ loop.index0 }}">Edit</a>
-                    <a href="/delete-note/{{ loop.index0 }}">Delete</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <h1 class="mb-4">My Notes</h1>
 
-    </body>
+    <!-- ERROR MESSAGE -->
+    {% if message %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+
+    <!-- Add Note Form -->
+    <form action="/add-note" method="post" class="d-flex mb-4 gap-2">
+        <input type="text" class="form-control" name="note" placeholder="Write a note..." required>
+        <button class="btn btn-primary">Add</button>
+    </form>
+
+    <!-- Notes List -->
+    <ul class="list-group">
+        {% for n in notes %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ n.text }}
+
+                <div>
+                    <a href="/edit/{{ n.id }}" class="btn btn-sm btn-warning me-2">Edit</a>
+                    <a href="/delete-note/{{ n.id }}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
 </html>

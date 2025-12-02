@@ -1,15 +1,26 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
 from app.routers import notes
+
+from app.database.database import engine
+
+
+from app.database import models
+
+# Create DB tables
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Correct static mount
+# Static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# Templates setup
+# Templates
 templates = Jinja2Templates(directory="app/templates")
 
-# REGISTER ROUTER HERE
+
+
+# Routers
 app.include_router(notes.router)

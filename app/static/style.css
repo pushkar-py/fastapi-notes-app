@@ -1,3 +1,11 @@
+.btn-submit {
+    background-color: #4CAF50; 
+    color: red; 
+    border: none; 
+    border-radius: 4px; 
+}
+
+
 body {
     font-family: Arial;
 
@@ -19,4 +27,6 @@ button {
 li {
     margin-top: 5px;
 }
+
+
 
